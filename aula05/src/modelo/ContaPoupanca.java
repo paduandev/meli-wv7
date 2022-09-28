@@ -3,7 +3,7 @@ package modelo;
 import exception.InvalidNumberException;
 
 public class ContaPoupanca extends Conta {
-    private static double taxa;
+    private static double taxa = 0.1;
 
     public ContaPoupanca(int numero, Cliente cliente) {
         super(numero, cliente);
@@ -26,7 +26,7 @@ public class ContaPoupanca extends Conta {
     }
 
     private boolean saldoInsuficiente(double valor) {
-        return getSaldo() + taxa < valor;
+        return getSaldo() < valor + taxa;
     }
 
     @Override

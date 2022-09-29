@@ -2,7 +2,7 @@ package modelo;
 
 import exception.InvalidNumberException;
 
-public abstract class Conta {
+public abstract class Conta implements Comparable<Conta> {
     private int numero;
     private double saldo;
     private Cliente cliente;
@@ -19,6 +19,11 @@ public abstract class Conta {
     public double getSaldo() {
         return saldo;
     }
+
+    public String getCliente() {
+        return cliente.getCpf();
+    }
+
 
     public void depositar(double valor) throws InvalidNumberException {
         if(valor <= 0 ) {
@@ -40,5 +45,16 @@ public abstract class Conta {
         return "numero=" + numero +
                 ", saldo=" + saldo +
                 ", cliente=" + cliente;
+    }
+
+    @Override
+    public int compareTo(Conta outraConta) {
+        if (this.saldo < outraConta.getSaldo()) {
+            return -1;
+        }
+        if (this.saldo > outraConta.getSaldo()) {
+            return 1;
+        }
+        return 0;
     }
 }

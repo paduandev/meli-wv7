@@ -5,6 +5,7 @@ import exception.InvalidNumberException;
 import modelo.*;
 import util.NumberGenerator;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +73,17 @@ public class GerenciaContas {
         }
     }
 
+    public void remover(int numeroConta) throws ContaInexistenteException {
+        Conta conta = contas.remove(numeroConta);
+        if (conta == null) {
+            throw new ContaInexistenteException("Conta " + numeroConta + " não existe.");
+        }
+    }
+
+    public boolean clientePossuiConta(String cpf) {
+        return contas.values().stream().filter(c -> c.getCliente().equals(cpf)).count() > 0;
+    }
+
     public List<String> listarTodasContas() {
         return contas.values().stream()
                 .map(c -> c.toString() + "\n")
@@ -81,10 +93,27 @@ public class GerenciaContas {
     public List<String> listarContaCorrentePorNumero() {
         return contas.values().stream()
                 .filter(c-> c instanceof ContaCorrente)
-                .sorted((c1, c2)->c1.getNumero() - c2.getNumero())
+//                .sorted((c1, c2)->c1.getNumero() - c2.getNumero())
+                .sorted(Comparator.comparingInt(Conta::getNumero)) // mesmo que a linha acima
                 .map(c->c.toString())
                 .collect(Collectors.toList());
     }
 
+    public List<String> listarContaCorrentePorSaldo() {
+        return contas.values().stream()
+                .filter(c -> c instanceof ContaCorrente)
+//                .sorted((c1, c2) -> c2.compareTo(c1))
+                .sorted(Comparator.reverseOrder()) // mesmo que a linha acima
+                .map(c -> c.toString())
+                .collect(Collectors.toList());
+    }
 
+    public List<String> listarContaEspecialNegativa() {
+        return contas.values().stream()
+                .filter(c -> c instanceof ContaEspecial)
+                .filter(c -> c.getSaldo() < 0)
+                .sorted(Comparator.reverseOrder())
+                .map(c -> c.toString())
+                .collect(Collectors.toList());
+    }
 }

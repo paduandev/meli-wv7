@@ -1,5 +1,6 @@
 package br.com.dh.spring03;
 
+import br.com.dh.spring03.exception.ExceptionDetails;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

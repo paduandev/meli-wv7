@@ -5,10 +5,7 @@ import br.com.dh.spring03.service.IVeiculo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,4 +26,21 @@ public class VeiculoController {
     public ResponseEntity<List<Veiculo>> getAll() {
         return new ResponseEntity<>(service.getAllVeiculo(), HttpStatus.OK);
     }
+
+    @GetMapping("/byvalue")
+    public ResponseEntity<List<Veiculo>> getAllOrderByValue() {
+        return new ResponseEntity<>(service.getAllOrderByValue(), HttpStatus.OK);
+    }
+
+      @GetMapping("/model/{model}")
+    public ResponseEntity<List<Veiculo>> getAllOrderByValue(@PathVariable String model) {
+        return new ResponseEntity<>(service.getByModel(model), HttpStatus.OK);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void save(@RequestBody Veiculo veiculo) {
+        service.save(veiculo);
+    }
+
 }

@@ -1,21 +1,26 @@
 [ {
   "placa" : "ABC 1234",
   "modelo" : "Fusca",
-  "ano": 1970,
+  "ano" : 1970,
   "valor" : 23000.0
 }, {
   "placa" : "DEF 4321",
   "modelo" : "Opala",
-  "ano": 1990,
+  "ano" : 1990,
   "valor" : 43000.0
 }, {
   "placa" : "XYZ 8888",
   "modelo" : "Civic",
-  "ano": 1998,
+  "ano" : 1998,
   "valor" : 10000.0
 }, {
   "placa" : "AAA 8888",
   "modelo" : "Civic",
-  "ano": 1997,
+  "ano" : 1997,
   "valor" : 12000.0
+}, {
+  "placa" : "FFF 1212",
+  "modelo" : "Gol",
+  "ano" : 2001,
+  "valor" : 14500.0
 } ]

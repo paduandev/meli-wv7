@@ -1,10 +1,13 @@
 package br.com.dh.spring03.repository;
 
 import br.com.dh.spring03.model.Veiculo;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -39,4 +42,20 @@ public class VeiculoRepo {
         return veiculos;
     }
 
+    public void saveVeiculo(Veiculo novoVeiculo) {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+
+        List<Veiculo> veiculos = getAll();
+
+        veiculos = new ArrayList<>(veiculos);
+
+        veiculos.add(novoVeiculo);
+
+        try {
+            writer.writeValue(new File(linkFile), veiculos);
+        }catch (Exception ex) {
+            System.out.println("Erro ao gravar o arquivo.");
+        }
+    }
 }

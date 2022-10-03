@@ -1,15 +1,21 @@
 package br.com.dh.spring03.service;
 
 import br.com.dh.spring03.model.Veiculo;
+import br.com.dh.spring03.repository.VeiculoRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class VeiculoService implements IVeiculo {
+
+    @Autowired
+    private VeiculoRepo repo;
+
     @Override
     public Veiculo getVeiculo(String placa) {
-        return new Veiculo(placa, "Astra", 2000, 12_000 );
+        return repo.getVeiculo(placa);
     }
 
     @Override

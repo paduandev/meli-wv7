@@ -2,25 +2,30 @@
   "placa" : "ABC 1234",
   "modelo" : "Fusca",
   "ano" : 1970,
-  "valor" : 23000.0
+  "valor" : 23000.0,
+  "id_proprietario": 1
 }, {
   "placa" : "DEF 4321",
   "modelo" : "Opala",
   "ano" : 1990,
-  "valor" : 43000.0
+  "valor" : 43000.0,
+  "id_proprietario": 2
 }, {
   "placa" : "XYZ 8888",
   "modelo" : "Civic",
   "ano" : 1998,
-  "valor" : 10000.0
+  "valor" : 10000.0,
+  "id_proprietario": 1
 }, {
   "placa" : "AAA 8888",
   "modelo" : "Civic",
   "ano" : 1997,
-  "valor" : 12000.0
+  "valor" : 12000.0,
+  "id_proprietario": 3
 }, {
   "placa" : "FFF 1212",
   "modelo" : "Gol",
   "ano" : 2001,
-  "valor" : 14500.0
+  "valor" : 14500.0,
+  "id_proprietario": 4
 } ]

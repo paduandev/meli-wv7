@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "nome": "Carlos",
+    "telefone": "(11) 91234-1234"
+  },
+  {
+    "id": 2,
+    "nome": "Marcos",
+    "telefone": "(11) 94321-4321"
+  },
+  {
+    "id": 3,
+    "nome": "Joice",
+    "telefone": "(11) 91010-2020"
+  },
+  {
+    "id": 4,
+    "nome": "Gilberto",
+    "telefone": "(21) 98888-1234"
+  }
+]

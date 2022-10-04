@@ -1,5 +1,6 @@
 package br.com.dh.spring03.service;
 
+import br.com.dh.spring03.dto.VeiculoDTO;
 import br.com.dh.spring03.exception.NotFoundException;
 import br.com.dh.spring03.model.Veiculo;
 import br.com.dh.spring03.repository.VeiculoRepo;
@@ -27,8 +28,11 @@ public class VeiculoService implements IVeiculo {
     }
 
     @Override
-    public List<Veiculo> getAllVeiculo() {
-        return repo.getAll();
+    public List<VeiculoDTO> getAllVeiculo() {
+        return repo.getAll().stream()
+//                .map(v->new VeiculoDTO(v))
+                .map(VeiculoDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -45,7 +49,7 @@ public class VeiculoService implements IVeiculo {
 
     @Override
     public List<Veiculo> getByModel(String model) {
-        return getAllVeiculo().stream()
+        return getAllOrderByValue().stream()
                 .filter(v-> v.getModelo().equalsIgnoreCase(model))
                 .collect(Collectors.toList());
     }

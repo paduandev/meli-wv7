@@ -1,5 +1,6 @@
 package br.com.dh.spring03.controller;
 
+import br.com.dh.spring03.dto.VeiculoDTO;
 import br.com.dh.spring03.model.Veiculo;
 import br.com.dh.spring03.service.IVeiculo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class VeiculoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Veiculo>> getAll() {
+    public ResponseEntity<List<VeiculoDTO>> getAll() {
         return new ResponseEntity<>(service.getAllVeiculo(), HttpStatus.OK);
     }
 

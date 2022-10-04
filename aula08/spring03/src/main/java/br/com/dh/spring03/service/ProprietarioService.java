@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProprietarioService implements IProprietario {
@@ -26,13 +27,21 @@ public class ProprietarioService implements IProprietario {
 
         proprietarioList.stream()
                 .forEach(proprietario -> {
-                    for (int i = 0; i < veiculoList.size(); i++) {
-                        if(veiculoList.get(i).getId_proprietario() == proprietario.getId()){
-//                            proprietario.addVeiculo(veiculoList.get(i));
-                            proprietario.addVeiculo(veiculoList.remove(i));
-                            i--;
-                        }
-                    }
+//                    for (int i = 0; i < veiculoList.size(); i++) {
+//                        if(veiculoList.get(i).getId_proprietario() == proprietario.getId()){
+////                            proprietario.addVeiculo(veiculoList.get(i));
+//                            proprietario.addVeiculo(veiculoList.remove(i));
+//                            i--;
+//                        }
+//                    }
+
+                    // outra solução: mais elegante, menor desempenho (imperceptível em listas pequenas/médias)
+
+                    List<Veiculo> veiculosDoProp = veiculoList.stream()
+                            .filter(v->v.getId_proprietario()== proprietario.getId())
+                            .collect(Collectors.toList());
+                    proprietario.setVeiculos( veiculosDoProp );
+                    veiculoList.removeAll(veiculosDoProp);
                 });
 
         return proprietarioList;

@@ -3,6 +3,7 @@ package br.com.dh.testes01.calculadora;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -57,4 +58,14 @@ public class CalculadoraTest {
         assertEquals(expected, resp);
     }
 
+
+
+    @Test
+    @ParameterizedTest
+    public void dividir_returnDouble_whenTwoPositiveValues(double n1, double n2, double expected) {
+
+        double resp = calculadora.dividir(n1, n2);
+
+        assertEquals(expected, resp);
+    }
 }

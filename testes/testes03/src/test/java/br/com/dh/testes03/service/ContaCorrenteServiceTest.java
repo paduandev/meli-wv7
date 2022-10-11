@@ -4,6 +4,7 @@ import br.com.dh.testes03.dao.ContaDAO;
 import br.com.dh.testes03.exception.ContaInexistenteException;
 import br.com.dh.testes03.exception.InvalidNumberException;
 import br.com.dh.testes03.modelo.ContaCorrente;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,37 +25,35 @@ class ContaCorrenteServiceTest {
     @Mock
     private ContaDAO dao;
 
+    private ContaCorrente contaCorrente;
+
+    @BeforeEach
+    void setup() {
+        contaCorrente = new ContaCorrente(1, "Cliente 1");
+    }
 
     @Test
     @DisplayName("Valida nova Conta")
     void novaContaCorrente_retorneNovaContaCorrente_quandoSucesso() {
-        final String nomeCliente = "Cliente 1";
-        final int numeroConta = 1;
-        ContaCorrente novaConta = new ContaCorrente(numeroConta, nomeCliente);
-
         Mockito.when(dao.novaContaCorrente(ArgumentMatchers.anyString()))
-                .thenReturn(novaConta);
+                .thenReturn(contaCorrente);
 
-        ContaCorrente cc = service.novaContaCorrente(nomeCliente);
+        ContaCorrente cc = service.novaContaCorrente(contaCorrente.getCliente());
 
         assertThat(cc).isNotNull();
         assertThat(cc.getNumero()).isPositive();
-        assertThat(cc.getCliente()).isEqualTo(nomeCliente);
+        assertThat(cc.getCliente()).isEqualTo(contaCorrente);
     }
 
     @Test
     void getConta_retornaContaCorrente_quandoContaExiste() throws ContaInexistenteException {
-        final String nomeCliente = "Cliente 1";
-        final int numeroConta = 1;
-        ContaCorrente novaConta = new ContaCorrente(numeroConta, nomeCliente);
-
         Mockito.when(dao.getContaCorrente(ArgumentMatchers.anyInt()))
-                .thenReturn(novaConta);
+                .thenReturn(contaCorrente);
 
-        ContaCorrente contaCorrenteFound = service.getConta(numeroConta);
+        ContaCorrente contaCorrenteFound = service.getConta(contaCorrente.getNumero());
 
         assertThat(contaCorrenteFound).isNotNull();
-        assertThat(contaCorrenteFound.getNumero()).isEqualTo(numeroConta);
+        assertThat(contaCorrenteFound.getNumero()).isEqualTo(contaCorrente.getNumero());
         assertThat(contaCorrenteFound.getSaldo()).isZero();
     }
 
@@ -72,22 +71,19 @@ class ContaCorrenteServiceTest {
 
     @Test
     void sacar_returnTrue_quandoContaExisteEValorValidoESaldoSuficiente() throws InvalidNumberException, ContaInexistenteException {
-        final String nomeCliente = "Cliente 1";
-        final int numeroConta = 1;
         final double valorOperacao = 100;
 
-        ContaCorrente novaConta = new ContaCorrente(numeroConta, nomeCliente);
-        novaConta.depositar(valorOperacao);
+        contaCorrente.depositar(valorOperacao);
 
         Mockito.when(dao.getContaCorrente(ArgumentMatchers.anyInt()))
-                .thenReturn(novaConta);
+                .thenReturn(contaCorrente);
         Mockito.when(dao.updateConta(ArgumentMatchers.any()))
                 .thenReturn(true);
 
-        boolean sucesso = service.sacar(numeroConta, valorOperacao);
+        boolean sucesso = service.sacar(contaCorrente.getNumero(), valorOperacao);
 
         assertThat(sucesso).isTrue();
-        assertThat(novaConta.getSaldo()).isZero();
+        assertThat(contaCorrente.getSaldo()).isZero();
     }
 
     @Test
@@ -107,17 +103,15 @@ class ContaCorrenteServiceTest {
 
     @Test
     void sacar_lancarInvalidNumberException_quandoValorOperacaoInvalido() throws ContaInexistenteException {
-        final String nomeCliente = "Cliente 1";
-        final int numeroConta = 1;
         final double valorOperacao = -100;
 
-        ContaCorrente novaConta = new ContaCorrente(numeroConta, nomeCliente);
+        ContaCorrente novaConta = new ContaCorrente(contaCorrente.getNumero(), contaCorrente.getCliente());
 
         Mockito.when(dao.getContaCorrente(ArgumentMatchers.anyInt()))
                 .thenReturn(novaConta);
 
         assertThrows(InvalidNumberException.class, () -> {
-            service.sacar(numeroConta, valorOperacao);
+            service.sacar(contaCorrente.getNumero(), valorOperacao);
         });
 
         verify(dao, never()).updateConta(ArgumentMatchers.any());
@@ -126,4 +120,5 @@ class ContaCorrenteServiceTest {
     @Test
     void depositar() {
     }
+
 }

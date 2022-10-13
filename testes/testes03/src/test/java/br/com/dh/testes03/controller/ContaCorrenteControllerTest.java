@@ -107,6 +107,25 @@ class ContaCorrenteControllerTest {
     }
 
     @Test
-    void sacar() {
+    void sacar_returnContaCorreteAtualizada_quandoDepositarComSucesso() throws Exception {
+        double valorDeposito = 100;
+        double valorSaque = valorDeposito / 2;
+
+        contaCorrente.depositar(valorDeposito);
+
+        BDDMockito.when(service.getConta(anyInt()))
+                .thenReturn(contaCorrente);
+
+        BDDMockito.doAnswer((invocation) -> {
+            return contaCorrente.sacar(valorSaque);
+        }).when(service).sacar(contaCorrente.getNumero(), valorSaque);
+
+        ResultActions resposta = mockMvc.perform(
+                patch("/cc/sacar/{numero}/{valor}", contaCorrente.getNumero(), valorSaque)
+                        .contentType(MediaType.APPLICATION_JSON));
+
+        resposta.andExpect(status().isOk())
+                .andExpect(jsonPath("$.cliente", CoreMatchers.is(contaCorrente.getCliente())))
+                .andExpect(jsonPath("$.saldo", CoreMatchers.is(valorDeposito / 2)));
     }
 }

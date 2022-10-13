@@ -88,12 +88,14 @@ class ContaCorrenteControllerTest {
     @Test
     void depositar_returnContaCorreteAtualizada_quandoDepositarComSucesso() throws Exception {
         double valorDeposito = 100;
+
         BDDMockito.when(service.getConta(anyInt()))
                 .thenReturn(contaCorrente);
-        BDDMockito.doAnswer(invocation -> {
+
+        BDDMockito.doAnswer((invocation) -> {
             contaCorrente.depositar(valorDeposito);
             return null;
-        }). when(service).depositar(contaCorrente.getNumero(), valorDeposito);
+        }).when(service).depositar(contaCorrente.getNumero(), valorDeposito);
 
         ResultActions resposta = mockMvc.perform(
                 patch("/cc/dep/{numero}/{valor}", contaCorrente.getNumero(), valorDeposito)

@@ -1,5 +1,6 @@
 package br.com.dh.testes03.controller;
 
+import br.com.dh.testes03.dto.ContaDTO;
 import br.com.dh.testes03.exception.ContaInexistenteException;
 import br.com.dh.testes03.exception.InsufficientSaldoException;
 import br.com.dh.testes03.exception.InvalidNumberException;
@@ -47,5 +48,12 @@ public class ContaCorrenteController {
         throw new InsufficientSaldoException("Saldo insuficiente");
     }
 
+    @PostMapping("/new")
+    public ResponseEntity<ContaCorrente> novaContaCorreteBody(@RequestBody ContaDTO contaDTO) {
+        ContaCorrente novaContaCorrete = service.novaContaCorrente(contaDTO.getCliente());
+
+        return new ResponseEntity<>(novaContaCorrete, HttpStatus.CREATED);
+
+    }
 
 }

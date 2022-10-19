@@ -10,7 +10,7 @@ create table produto (
     nome varchar(100) not null,
     preco double default 0,
     primary key(id)
-);
+) collate 'utf8mb4_cs_0900_as_cs' ;
 
 # insere um registro na table de produtos
 insert into produto values (1, 'Teclado', 150);
@@ -34,4 +34,4 @@ select nome, preco
 from produto
 where nome like "%mouse%";
 
-
+show collation;

@@ -1,0 +1,60 @@
+Crie um índice chamado destinos.
+PUT destinos
+
+Escolha alguns destinos de viagem dos sonhos. Para cada destino, indexe um documento contendo o nome e o país.
+POST destinos/_doc
+{
+  "nome": "",
+  "pais": "BR"
+}
+
+ou
+
+PUT destinos/_create/1
+{
+  "nome": "",
+  "pais": "BR"
+}
+
+Leia (GET) cada documento para verificar o conteúdo do documento.
+GET destinos/_doc/1
+
+Atualizar um campo de um documento.
+POST destinos/_update/1
+{
+  "doc":{
+    "nome": "xxx"
+  }
+}
+
+Leia (GET) o documento atualizado para garantir que o campo foi atualizado.
+GET destinos/_doc/1
+
+Excluir um documento de um lugar.
+DELETE destinos/_doc/1
+
+Liste todos os documentos do índice de destinos.
+GET destinos/_search
+
+ou 
+
+GET destinos/_search
+{
+  "query":{
+    "match_all": {}
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,81 @@
+# verifica a saúde do cluester
+GET _cluster/health
+
+# verifica o status dos nodes
+GET _nodes/stats
+
+# criar um novo índice (BD)
+PUT comidas_preferidas
+
+# listar os ídices existentes
+GET _cat/indices
+
+# listar os ídices existentes
+GET _cat/indices?v=true
+
+#inserir um novo documento, gerando um novo ID
+POST comidas_preferidas/_doc
+{
+  "nome": "Bruna",
+  "comida": "pizza"
+}
+
+# buscar um documento pelo ID
+GET comidas_preferidas/_doc/KjVw9oMBupE_50fnxWsy
+
+# cria um novo documento, com um ID fornecido
+PUT comidas_preferidas/_doc/1
+{
+  "nome": "Anderson",
+  "comida": "moqueca"
+}
+
+# atualiza o conteúdo, caso o índice já exista
+PUT comidas_preferidas/_doc/1
+{
+  "nome": "Carolina",
+  "comida": "japonesa"
+}
+
+GET comidas_preferidas/_doc/1
+
+# Inserir um novo documento, sem permitir o update
+PUT comidas_preferidas/_create/2
+{
+  "nome": "Gabriel",
+  "comida": "shawarma"
+}
+
+PUT comidas_preferidas/_create/3
+{
+  "nome": "Hugo",
+  "comida": "Hamburger"
+}
+
+# atualiza um documento
+POST comidas_preferidas/_update/3
+{
+  "doc":{
+    "comida": "Salada"
+  }
+}
+
+# listar os documentos de um índice
+GET comidas_preferidas/_search
+
+# configura o índice indicando uma única replica
+PUT comidas_preferidas/_settings
+{
+  "index":{
+    "number_of_replicas": 0
+  }
+}
+
+
+GET comidas_preferidas/_search
+{
+  "query":{
+    "match": {"comida":"pizza"}
+  }
+}
+

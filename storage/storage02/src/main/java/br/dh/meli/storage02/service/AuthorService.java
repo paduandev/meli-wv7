@@ -1,5 +1,6 @@
 package br.dh.meli.storage02.service;
 
+import br.dh.meli.storage02.dto.AuthorDTO;
 import br.dh.meli.storage02.model.Author;
 import br.dh.meli.storage02.repository.AuthorRepo;
 import lombok.RequiredArgsConstructor;
@@ -32,4 +33,21 @@ public class AuthorService implements IAuthorService {
     public void delete(long id) {
         repo.deleteById(id);
     }
+
+    @Override
+    public AuthorDTO getById(long id) {
+        return repo.getById(id);
+    }
+
+    @Override
+    public Author getNAtiveById(long id) {
+        return repo.getNativeById(id);
+    }
+
+    @Override
+    public AuthorDTO getDtoEagle(long id) {
+        return repo.getDtoEagle(id);
+    }
+
+
 }

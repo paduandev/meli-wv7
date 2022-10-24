@@ -5,8 +5,6 @@ import br.dh.meli.storage02.repository.BookRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class BookService implements IBookService {
@@ -22,5 +20,10 @@ public class BookService implements IBookService {
         return null;*/
 
         return repo.findById(id).orElse(null);
+    }
+
+    @Override
+    public void delete(long id) {
+        repo.deleteById(id);
     }
 }

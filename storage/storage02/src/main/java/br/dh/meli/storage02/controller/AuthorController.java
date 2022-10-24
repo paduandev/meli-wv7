@@ -28,4 +28,9 @@ public class AuthorController {
         return ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete (@PathVariable long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

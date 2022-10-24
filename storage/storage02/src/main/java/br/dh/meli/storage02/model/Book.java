@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,4 +24,8 @@ public class Book {
     @JoinColumn(name = "id_subject")
     @JsonIgnoreProperties("books")
     private Subject subject;
+
+    @ManyToMany(mappedBy = "books")
+    @JsonIgnoreProperties("books")
+    private Set<Author> authors;
 }

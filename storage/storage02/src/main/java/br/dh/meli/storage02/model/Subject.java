@@ -20,7 +20,7 @@ public class Subject {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("subject")
     private List<Book> books;
 }

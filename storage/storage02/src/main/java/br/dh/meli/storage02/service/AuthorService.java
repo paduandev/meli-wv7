@@ -15,6 +15,7 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public Author insert(Author author) {
+        author.getAddress().setAuthor(author);
         return repo.save(author);
     }
 
@@ -25,5 +26,10 @@ public class AuthorService implements IAuthorService {
             return optionalAuthor.get();
         }
         return null;
+    }
+
+    @Override
+    public void delete(long id) {
+        repo.deleteById(id);
     }
 }

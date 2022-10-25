@@ -40,7 +40,13 @@ public class TutorialController {
 
     @GetMapping("/title/{title}")
     public ResponseEntity<List<Tutorial>> getByTitle(@PathVariable String title) {
-        List<Tutorial> tutoriais = service.getByTitle(title);
-        return new ResponseEntity<>(tutoriais, HttpStatus.OK);
+        List<Tutorial> tutorials = service.getByTitle(title);
+        return new ResponseEntity<>(tutorials, HttpStatus.OK);
+    }
+
+    @GetMapping("/published")
+    public ResponseEntity<List<Tutorial>> getPublished() {
+        List<Tutorial> tutorials = service.getPublished();
+        return new ResponseEntity<>(tutorials, HttpStatus.OK);
     }
 }

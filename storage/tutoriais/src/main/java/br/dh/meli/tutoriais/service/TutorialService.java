@@ -61,7 +61,7 @@ public class TutorialService implements ITutorialService {
 
     @Override
     public List<Tutorial> getPublished() {
-        return null;
+        return repo.findByStatus(Status.PUBLISHED);
     }
 
     @Override

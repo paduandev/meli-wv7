@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +20,8 @@ public class TutorialController {
     @Autowired
     private ITutorialService service;
 
-    // TODO: tratar exception de title null
     @PostMapping
-    public ResponseEntity<Tutorial> insert(@RequestBody Tutorial tutorial) {
+    public ResponseEntity<Tutorial> insert(@Valid @RequestBody Tutorial tutorial) {
         Tutorial newTutorial = service.insert(tutorial);
          return new ResponseEntity<>(newTutorial, HttpStatus.CREATED);
     }

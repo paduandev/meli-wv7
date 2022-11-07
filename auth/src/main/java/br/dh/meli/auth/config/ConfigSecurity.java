@@ -4,6 +4,7 @@ import br.dh.meli.auth.jwt.JwtTokenFilter;
 import br.dh.meli.auth.repository.ApiUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -45,6 +46,9 @@ public class ConfigSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/user/new").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/product/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/product/**").hasAuthority("ADMIN")
+                .antMatchers("/product/**").hasAnyAuthority("USER", "ADMIN")
                 .anyRequest().authenticated();
 
         http.exceptionHandling()

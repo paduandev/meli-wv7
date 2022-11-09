@@ -12,7 +12,10 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.ConstraintViolationException;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @ActiveProfiles("test")
 @DataJpaTest
@@ -37,6 +40,15 @@ public class TutorialRepoTest {
         assertThat(tutorialSaved.getId()).isPositive();
         assertThat(tutorialSaved.getStatus()).isEqualTo(Status.DRAFT);
         assertThat(tutorialSaved.getTitle()).isEqualTo(newTutorial.getTitle());
+    }
+
+    @Test
+    public void save_returnTutorial_whenTutorialIsInValid() {
+        Tutorial newTutorial = new Tutorial(null, null, "Descrição 1", Status.DRAFT);
+
+        assertThatThrownBy(() -> repo.save(newTutorial))
+                .isInstanceOf(ConstraintViolationException.class);
+
     }
 
     @Test
